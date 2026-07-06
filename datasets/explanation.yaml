@@ -1,0 +1,79 @@
+id: explanation
+name: Conceptual Explanation Tasks
+description: Tasks that require explaining a technical concept clearly and accurately.
+task_class: explanation
+tasks:
+  - id: explain_001
+    suite_id: explanation
+    task_class: explanation
+    input: |
+      Explain event sourcing to a backend engineer who has only used traditional CRUD databases. Cover: what problem it solves, how it differs from storing current state, the role of the event store, and when it's the right choice vs when it adds unnecessary complexity.
+    expected_properties:
+      required_keys:
+        - event sourcing
+        - event store
+        - current state
+        - append only
+        - replay
+
+  - id: explain_002
+    suite_id: explanation
+    task_class: explanation
+    input: |
+      Explain the CAP theorem to a product manager. Use concrete examples from real systems. Don't use academic language. Make clear why this matters for product decisions about consistency, availability, and partition tolerance.
+    expected_properties:
+      required_keys:
+        - consistency
+        - availability
+        - partition
+        - trade-off
+        - example
+
+  - id: explain_003
+    suite_id: explanation
+    task_class: explanation
+    input: |
+      Explain Kubernetes operators to a senior developer who understands containers and deployments but hasn't used operators. Cover: what an operator is, how it extends the Kubernetes control loop, the difference between a controller and an operator, and when to build one vs using Helm.
+    expected_properties:
+      required_keys:
+        - control loop
+        - custom resource
+        - reconcile
+        - operator
+
+  - id: explain_004
+    suite_id: explanation
+    task_class: explanation
+    input: |
+      Explain zero-knowledge proofs to a security engineer who understands cryptography basics (hashing, symmetric/asymmetric encryption) but not ZKPs. Cover: what problem ZKPs solve, the basic intuition behind how they work, and practical applications today.
+    expected_properties:
+      required_keys:
+        - prover
+        - verifier
+        - zero knowledge
+        - proof
+
+  - id: explain_005
+    suite_id: explanation
+    task_class: explanation
+    input: |
+      Explain WebAssembly (Wasm) to a backend engineer. Cover: what it is, how it differs from JavaScript and native binaries, its runtime model, and where it's being used beyond the browser (server-side, edge, plugins).
+    expected_properties:
+      required_keys:
+        - binary format
+        - sandbox
+        - runtime
+        - compilation target
+
+  - id: explain_006
+    suite_id: explanation
+    task_class: explanation
+    input: |
+      Explain the actor model to a developer who has only used thread-based concurrency with locks and mutexes. Cover: what an actor is, how message passing replaces shared memory, supervision hierarchies, and where this model is used (Erlang, Akka, Orleans).
+    expected_properties:
+      required_keys:
+        - actor
+        - message passing
+        - supervision
+        - shared state
+        - mailbox

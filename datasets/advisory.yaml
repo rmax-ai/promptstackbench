@@ -1,0 +1,92 @@
+id: advisory
+name: Advisory Tasks
+description: Tasks that require giving cautious, well-reasoned technical migration advice.
+task_class: advisory
+tasks:
+  - id: advisory_001
+    suite_id: advisory
+    task_class: advisory
+    input: |
+      A team runs a monolithic Rails application serving 5,000 requests per second. The monolith has become difficult to deploy and test. The team lead wants to migrate to microservices. As a technical advisor, provide a cautious migration recommendation covering: risks, prerequisites, incremental approach, and when NOT to migrate. Do not recommend a specific framework.
+    expected_properties:
+      required_keys:
+        - risk
+        - prerequisite
+        - incremental
+        - when not to
+
+  - id: advisory_002
+    suite_id: advisory
+    task_class: advisory
+    input: |
+      A startup with 8 engineers uses a single AWS account with all resources in one region. They've had no incidents but are growing fast and onboarding enterprise customers who ask about disaster recovery. As a technical advisor, recommend an infrastructure evolution path that balances cost, complexity, and reliability. Include specific milestones.
+    expected_properties:
+      required_keys:
+        - multi account
+        - disaster recovery
+        - milestone
+        - cost
+
+  - id: advisory_003
+    suite_id: advisory
+    task_class: advisory
+    input: |
+      A team maintains a PostgreSQL database that has grown to 2 TB. Query performance is degrading, and vacuum operations take hours. The team is considering sharding. As a technical advisor, evaluate whether sharding is the right approach and recommend alternatives to try first.
+    expected_properties:
+      required_keys:
+        - sharding
+        - alternative
+        - partitioning
+        - read replica
+        - query optimization
+
+  - id: advisory_004
+    suite_id: advisory
+    task_class: advisory
+    input: |
+      A company stores all customer data in a single database with no encryption at rest, no audit logs, and API keys in source code. They are about to undergo SOC 2 certification. As a technical advisor, recommend the highest-impact security improvements in priority order. Focus on what auditors will actually check.
+    expected_properties:
+      required_keys:
+        - encryption
+        - audit log
+        - secret management
+        - access control
+        - priority
+
+  - id: advisory_005
+    suite_id: advisory
+    task_class: advisory
+    input: |
+      A team runs a data pipeline that processes 100 GB per day using Apache Airflow on a single EC2 instance. Jobs are starting to exceed their scheduling windows. The team is evaluating Spark, Flink, and dbt. As a technical advisor, help them choose based on their actual workload: batch ETL with complex SQL transformations and occasional streaming needs.
+    expected_properties:
+      required_keys:
+        - batch
+        - streaming
+        - SQL
+        - trade-off
+
+  - id: advisory_006
+    suite_id: advisory
+    task_class: advisory
+    input: |
+      An engineering organization of 50 people has no on-call rotation, no incident response process, and no postmortem culture. Deployments happen ad-hoc and incidents are resolved by whoever notices first. The CTO wants to introduce SRE practices but is worried about engineer resistance. As a technical advisor, recommend a phased approach to introducing operational discipline without triggering a revolt.
+    expected_properties:
+      required_keys:
+        - on call
+        - incident response
+        - postmortem
+        - phased
+        - culture
+
+  - id: advisory_007
+    suite_id: advisory
+    task_class: advisory
+    input: |
+      A team built an internal developer platform on top of Kubernetes with a custom DSL for service definitions. Adoption is low because the DSL has a steep learning curve and debugging failures requires understanding Kubernetes internals. The platform team wants to simplify but has invested 18 months. As a technical advisor, recommend whether to simplify the existing platform, adopt an off-the-shelf alternative, or reduce scope to just the features engineers actually use.
+    expected_properties:
+      required_keys:
+        - adoption
+        - simplicity
+        - sunk cost
+        - usability
+        - scope

@@ -1,0 +1,105 @@
+id: architecture_review
+name: Architecture Review Tasks
+description: Tasks that require reviewing a system design for production readiness.
+task_class: architecture_review
+tasks:
+  - id: arch_review_001
+    suite_id: architecture_review
+    task_class: architecture_review
+    input: |
+      Review this architecture: A team reads Slack messages to trigger operational workflows. When a message arrives in a specific channel, an automation extracts the intent, maps it to a workflow, and executes it. The system handles deployments, incident response, and customer provisioning through Slack commands. Evaluate whether this is a sound architecture for a business-critical automation system.
+    expected_properties:
+      required_keys:
+        - event bus
+        - coupling
+        - failure mode
+        - source of truth
+        - separation
+      forbidden_patterns:
+        - perfectly fine
+        - no issues
+
+  - id: arch_review_002
+    suite_id: architecture_review
+    task_class: architecture_review
+    input: |
+      Review this design: A single PostgreSQL instance handles all reads, writes, analytics queries, and audit logging for a payment processing system with 10,000 transactions per second. The team argues this is simpler than a multi-database setup. Evaluate the trade-offs.
+    expected_properties:
+      required_keys:
+        - read replica
+        - separation
+        - bottleneck
+        - analytics
+        - audit
+      forbidden_patterns:
+        - perfectly adequate
+
+  - id: arch_review_003
+    suite_id: architecture_review
+    task_class: architecture_review
+    input: |
+      Review this design: A microservices system uses synchronous HTTP calls between all services. When Service A needs data from Service B, it makes a blocking HTTP request. When Service B needs Service C, it does the same. The average user request touches 7 services in a chain. The team says synchronous calls are "simpler to debug." Evaluate.
+    expected_properties:
+      required_keys:
+        - latency
+        - cascading failure
+        - circuit breaker
+        - async messaging
+        - timeout
+      forbidden_patterns:
+        - "this is fine"
+
+  - id: arch_review_004
+    suite_id: architecture_review
+    task_class: architecture_review
+    input: |
+      Review this design: A team stores all application configuration as environment variables, including database connection strings, feature flags, third-party API keys, and per-customer override settings. Config changes require a full application restart. Evaluate the operational risks.
+    expected_properties:
+      required_keys:
+        - secret management
+        - rotation
+        - restart
+        - feature flag
+        - configuration drift
+
+  - id: arch_review_005
+    suite_id: architecture_review
+    task_class: architecture_review
+    input: |
+      Review this design: A distributed system uses a single shared Redis instance as both a cache and a message queue. Cache evictions and queue operations share the same memory space. When Redis reaches memory limit, both cached data and queued messages are evicted by the same LRU policy. Evaluate.
+    expected_properties:
+      required_keys:
+        - separation
+        - memory pressure
+        - message loss
+        - cache misses
+        - dedicated instance
+
+  - id: arch_review_006
+    suite_id: architecture_review
+    task_class: architecture_review
+    input: |
+      Review this design: An authentication system stores user sessions in-memory on each application server instance. When a server goes down, all sessions on that server are lost. The team load-balances with round-robin DNS and argues sticky sessions solve the problem. Evaluate whether this is production-ready for a SaaS platform with 50K concurrent users.
+    expected_properties:
+      required_keys:
+        - session store
+        - failover
+        - sticky session
+        - external session
+        - Redis
+      forbidden_patterns:
+        - perfectly production-ready
+
+  - id: arch_review_007
+    suite_id: architecture_review
+    task_class: architecture_review
+    input: |
+      Review this design: A data pipeline ingests events from Kafka, transforms them in a Python service, and writes results to S3. The Python service has no retry logic, no dead-letter queue, no checkpointing, and processes messages one at a time with a 30-second timeout. If a message takes longer than 30 seconds, it's silently dropped. Evaluate the data integrity guarantees.
+    expected_properties:
+      required_keys:
+        - retry
+        - dead letter
+        - checkpoint
+        - exactly once
+        - at least once
+        - idempotency
