@@ -4,72 +4,284 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PromptStackBench</title>
-    <meta name="description" content="Evaluate when a persona should become a skill, when a skill should become an agent, and when an agent needs a harness." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link href="./_app/immutable/entry/start.Db5X9gFC.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/mm9VeTQF.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/CRIiqZME.js" rel="modulepreload">
-		<link href="./_app/immutable/entry/app.pO2dNJpB.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/DYl5dUZ5.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/0.DRGYx3Zt.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/2.DBNiiNdK.js" rel="modulepreload">
-		<!--1uha8ag--><meta name="description" content="Evaluate when a persona should become a skill, when a skill should become an agent, and when an agent needs a harness."/><!----><title>PromptStackBench — Taxonomy Evaluation Harness</title>
-		<link href="./_app/immutable/assets/0.DYiUt6xU.css" rel="stylesheet">
+    <meta
+      name="description"
+      content="Evaluate when a persona should become a skill, when a skill should become an agent, and when an agent needs a harness."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #020617;
+        --panel: #0f172a;
+        --panel-2: #111827;
+        --text: #cbd5e1;
+        --muted: #94a3b8;
+        --heading: #f8fafc;
+        --accent: #818cf8;
+        --accent-2: #38bdf8;
+        --border: #1e293b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(129, 140, 248, 0.16), transparent 35%),
+          linear-gradient(180deg, #020617 0%, #020617 100%);
+        color: var(--text);
+      }
+
+      main {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 72px 24px 96px;
+      }
+
+      section + section {
+        margin-top: 56px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--heading);
+        margin: 0 0 16px;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 6vw, 4.8rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0 0 16px;
+      }
+
+      a {
+        color: var(--accent-2);
+      }
+
+      .hero {
+        display: grid;
+        gap: 28px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.72);
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .hero-grid,
+      .cards {
+        display: grid;
+        gap: 18px;
+      }
+
+      .hero-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        align-items: start;
+      }
+
+      .panel,
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: rgba(15, 23, 42, 0.78);
+      }
+
+      .panel {
+        overflow: hidden;
+      }
+
+      .panel-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      pre {
+        margin: 0;
+        padding: 18px;
+        overflow-x: auto;
+        font-family:
+          "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", monospace;
+        font-size: 0.88rem;
+        line-height: 1.65;
+        color: #e2e8f0;
+      }
+
+      code {
+        font-family:
+          "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", monospace;
+      }
+
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .card h3 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      li + li {
+        margin-top: 10px;
+      }
+
+      .footer {
+        margin-top: 72px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+    </style>
   </head>
-  <body class="bg-slate-950 text-slate-400 font-sans antialiased">
-    <!--[--><!--[0--><!--[--><!--[--><section id="" class="py-24 px-4 sm:px-6 "><div class="max-w-5xl mx-auto"><div class="text-center"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-500 mb-8"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> v0.1.0</div> <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-50 mb-6">PromptStack<span class="text-indigo-400">Bench</span></h1> <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed">Evaluate when a persona should become a skill,
-      when a skill should become an agent,
-      and when an agent needs a harness.</p> <p class="text-sm text-slate-500 max-w-xl mx-auto mb-10">Run the same task through five control abstractions.
-      Compare outputs on correctness, clarity, stability, safety, cost, and trace quality.
-      Know when each layer pays for itself.</p> <div class="flex items-center justify-center gap-4"><a href="https://github.com/rmax-ai/promptstackbench" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">View on GitHub <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"></path></svg></a> <a href="#quickstart" class="inline-flex items-center gap-2 border border-slate-800 hover:bg-slate-900 text-slate-300 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">Quickstart</a></div></div> <div class="mt-16 max-w-2xl mx-auto"><div class="rounded-lg border border-slate-800 bg-black overflow-hidden"><div class="flex items-center gap-2 px-4 py-3 border-b border-slate-800"><span class="w-3 h-3 rounded-full bg-red-500/80"></span> <span class="w-3 h-3 rounded-full bg-amber-500/80"></span> <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span> <span class="ml-2 text-xs font-mono text-slate-600">benchmark run</span></div> <pre class="p-4 text-xs font-mono text-slate-400 leading-relaxed overflow-x-auto"><span class="text-slate-600">$</span> <span class="text-indigo-400">promptstackbench</span> run --suite architecture_review --treatments persona,lens,skill
+  <body>
+    <main>
+      <section class="hero">
+        <div>
+          <span class="badge">v0.1.0</span>
+        </div>
+        <div class="hero-grid">
+          <div>
+            <h1>PromptStackBench</h1>
+            <p>
+              Evaluate when a persona should become a skill, when a skill should
+              become an agent, and when an agent needs a harness.
+            </p>
+            <p>
+              Compare answer quality, groundedness, stability, cost, latency,
+              and promotion value across the taxonomy.
+            </p>
+          </div>
+          <div class="panel">
+            <div class="panel-header">Quickstart</div>
+            <pre><code>uv sync --extra dev
+mkdir -p workspace/readme-example
+uv run promptstackbench init --path workspace/readme-example
+uv run promptstackbench run \
+  --suite architecture_review \
+  --treatments persona,lens,skill \
+  --repetitions 1 \
+  --paraphrases 1 \
+  --mock \
+  --data-dir workspace/readme-example/datasets \
+  --specs-dir workspace/readme-example/specs \
+  --traces-dir workspace/readme-example/traces
+uv run promptstackbench report \
+  --run-id &lt;run-id&gt; \
+  --format html \
+  --traces-dir workspace/readme-example/traces</code></pre>
+          </div>
+        </div>
+      </section>
 
-<span class="text-slate-600">┌─────────────────────┬──────────┬──────────┬──────────┐</span>
-<span class="text-slate-600">│ Metric              │</span> <span class="text-amber-400">Persona</span>  <span class="text-slate-600">│</span> <span class="text-amber-400">Lens</span>     <span class="text-slate-600">│</span> <span class="text-emerald-400">Skill</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">├─────────────────────┼──────────┼──────────┼──────────┤</span>
-<span class="text-slate-600">│ Correctness         │</span>   6.2    <span class="text-slate-600">│</span>   7.1    <span class="text-slate-600">│</span>   <span class="text-emerald-400">8.4</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">│ Completeness        │</span>   5.8    <span class="text-slate-600">│</span>   6.9    <span class="text-slate-600">│</span>   <span class="text-emerald-400">8.1</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">│ Schema Validity     │</span>   4.2    <span class="text-slate-600">│</span>   5.5    <span class="text-slate-600">│</span>   <span class="text-emerald-400">9.7</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">│ Stability           │</span>   5.5    <span class="text-slate-600">│</span>   7.0    <span class="text-slate-600">│</span>   <span class="text-emerald-400">9.1</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">└─────────────────────┴──────────┴──────────┴──────────┘</span>
+      <section>
+        <h2>How It Works</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Load</h3>
+            <p>
+              Define task suites and taxonomy specs in YAML, then initialize a
+              fresh workspace directory for each example run.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Run</h3>
+            <p>
+              Execute each task through each treatment with configurable
+              repetitions and paraphrases. Outputs are stored in SQLite.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Compare</h3>
+            <p>
+              Generate HTML or Markdown reports with scores, robustness
+              summaries, and promotion signals.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<span class="text-emerald-400">Promotion signal (persona → skill): 1.84</span>
-<span class="text-slate-600">Skill treatment justified: quality gain (+34%) at 1.2× cost</span></pre></div></div><!----></div></section><!----> <section id="taxonomy" class="py-24 px-4 sm:px-6 "><div class="max-w-5xl mx-auto"><h2 class="text-2xl font-semibold tracking-tight text-slate-50 mb-2">The <span class="text-indigo-400">Taxonomy</span></h2> <p class="text-slate-500 mb-12 max-w-xl">Five control abstractions, from lightweight role instructions to governed agent runtimes.
-    Each adds structure — and cost. The benchmark measures when the trade-off pays off.</p> <div class="relative"><!--[--><div class="relative pl-8 pb-12 last:pb-0 group"><!--[0--><div class="absolute left-[11px] top-10 bottom-0 w-px bg-slate-800"></div><!--]--> <div class="absolute left-0 top-2 w-[23px] h-[23px] rounded-full border-2 transition-colors duration-200 border-slate-700"><div class="absolute inset-1 rounded-full transition-colors bg-slate-600"></div></div> <div class="border-l-2 rounded-r-lg p-5 transition-all duration-200 border-l-slate-700 bg-transparent"><div class="flex items-baseline gap-3 mb-2"><span class="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">L1</span> <h3 class="text-lg font-semibold text-slate-200">Persona</h3> <span class="text-xs text-slate-600 font-mono hidden sm:inline">persona</span></div> <p class="text-sm text-slate-400 leading-relaxed mb-2">Role and interaction style. Easy to write, good UX — but hidden assumptions, weak reproducibility, role drift.</p> <p class="text-xs text-slate-600"><span class="text-slate-500">Best for:</span> Low-risk tasks where voice matters</p></div></div><div class="relative pl-8 pb-12 last:pb-0 group"><!--[0--><div class="absolute left-[11px] top-10 bottom-0 w-px bg-slate-800"></div><!--]--> <div class="absolute left-0 top-2 w-[23px] h-[23px] rounded-full border-2 transition-colors duration-200 border-slate-700"><div class="absolute inset-1 rounded-full transition-colors bg-slate-600"></div></div> <div class="border-l-2 rounded-r-lg p-5 transition-all duration-200 border-l-slate-600 bg-transparent"><div class="flex items-baseline gap-3 mb-2"><span class="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">L2</span> <h3 class="text-lg font-semibold text-slate-200">Lens</h3> <span class="text-xs text-slate-600 font-mono hidden sm:inline">lens</span></div> <p class="text-sm text-slate-400 leading-relaxed mb-2">Constrained viewpoint. Sharper than persona, less theatrical — but still no defined procedure.</p> <p class="text-xs text-slate-600"><span class="text-slate-500">Best for:</span> Tasks needing a stable perspective</p></div></div><div class="relative pl-8 pb-12 last:pb-0 group"><!--[0--><div class="absolute left-[11px] top-10 bottom-0 w-px bg-slate-800"></div><!--]--> <div class="absolute left-0 top-2 w-[23px] h-[23px] rounded-full border-2 transition-colors duration-200 border-slate-700"><div class="absolute inset-1 rounded-full transition-colors bg-slate-600"></div></div> <div class="border-l-2 rounded-r-lg p-5 transition-all duration-200 border-l-slate-500 bg-transparent"><div class="flex items-baseline gap-3 mb-2"><span class="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">L3</span> <h3 class="text-lg font-semibold text-slate-200">Skill</h3> <span class="text-xs text-slate-600 font-mono hidden sm:inline">skill</span></div> <p class="text-sm text-slate-400 leading-relaxed mb-2">Procedure + output schema. Interpretable, testable, reusable. The default unit of reliable work.</p> <p class="text-xs text-slate-600"><span class="text-slate-500">Best for:</span> Repeatable, reviewable tasks with known output shape</p></div></div><div class="relative pl-8 pb-12 last:pb-0 group"><!--[0--><div class="absolute left-[11px] top-10 bottom-0 w-px bg-slate-800"></div><!--]--> <div class="absolute left-0 top-2 w-[23px] h-[23px] rounded-full border-2 transition-colors duration-200 border-slate-700"><div class="absolute inset-1 rounded-full transition-colors bg-slate-600"></div></div> <div class="border-l-2 rounded-r-lg p-5 transition-all duration-200 border-l-indigo-600 bg-transparent"><div class="flex items-baseline gap-3 mb-2"><span class="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">L4</span> <h3 class="text-lg font-semibold text-slate-200">Agent</h3> <span class="text-xs text-slate-600 font-mono hidden sm:inline">agent</span></div> <p class="text-sm text-slate-400 leading-relaxed mb-2">Tools + state + multi-step reasoning. Useful when tasks require search, branching, or external action.</p> <p class="text-xs text-slate-600"><span class="text-slate-500">Best for:</span> Tasks requiring tools, state, or multi-step search</p></div></div><div class="relative pl-8 pb-12 last:pb-0 group"><!--[-1--><!--]--> <div class="absolute left-0 top-2 w-[23px] h-[23px] rounded-full border-2 transition-colors duration-200 border-slate-700"><div class="absolute inset-1 rounded-full transition-colors bg-slate-600"></div></div> <div class="border-l-2 rounded-r-lg p-5 transition-all duration-200 border-l-indigo-400 bg-transparent"><div class="flex items-baseline gap-3 mb-2"><span class="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">L5</span> <h3 class="text-lg font-semibold text-slate-200">Harness</h3> <span class="text-xs text-slate-600 font-mono hidden sm:inline">harness</span></div> <p class="text-sm text-slate-400 leading-relaxed mb-2">Guards + retry + audit trail. The evaluation and control layer. Highest implementation complexity.</p> <p class="text-xs text-slate-600"><span class="text-slate-500">Best for:</span> Compliance, safety, production actions, audit requirements</p></div></div><!--]--></div><!----></div></section><!----> <section id="metrics" class="py-24 px-4 sm:px-6 "><div class="max-w-5xl mx-auto"><h2 class="text-2xl font-semibold tracking-tight text-slate-50 mb-2">Evaluation <span class="text-indigo-400">Metrics</span></h2> <p class="text-slate-500 mb-12 max-w-xl">Eight metrics across two categories. Hover any taxonomy layer above to see which
-    metrics discriminate most at that level.</p> <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"><!--[--><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">COR</span> <h4 class="text-sm font-medium text-slate-300">Correctness</h4></div> <p class="text-xs text-slate-500 leading-relaxed">Does the output solve the task?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Final-answer</p></div><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">CMP</span> <h4 class="text-sm font-medium text-slate-300">Completeness</h4></div> <p class="text-xs text-slate-500 leading-relaxed">Does it cover all necessary aspects?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Final-answer</p></div><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">CLR</span> <h4 class="text-sm font-medium text-slate-300">Clarity</h4></div> <p class="text-xs text-slate-500 leading-relaxed">Is the response well-structured and readable?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Final-answer</p></div><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">REL</span> <h4 class="text-sm font-medium text-slate-300">Relevance</h4></div> <p class="text-xs text-slate-500 leading-relaxed">Is every part relevant to the task?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Final-answer</p></div><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">SCH</span> <h4 class="text-sm font-medium text-slate-300">Schema Validity</h4></div> <p class="text-xs text-slate-500 leading-relaxed">Does output match expected structure?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Final-answer</p></div><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">HAL</span> <h4 class="text-sm font-medium text-slate-300">Hallucination</h4></div> <p class="text-xs text-slate-500 leading-relaxed">Are claims grounded or fabricated?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Final-answer</p></div><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">STB</span> <h4 class="text-sm font-medium text-slate-300">Stability</h4></div> <p class="text-xs text-slate-500 leading-relaxed">Does it hold under paraphrase perturbations?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Robustness</p></div><div class="group border border-slate-800 bg-slate-900/30 p-4 rounded-lg hover:border-indigo-500/50 transition-colors duration-200 "><div class="flex items-center gap-2 mb-2"><span class="font-mono text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-indigo-400">VAR</span> <h4 class="text-sm font-medium text-slate-300">Run Variance</h4></div> <p class="text-xs text-slate-500 leading-relaxed">How consistent across repeated runs?</p> <p class="text-[10px] text-slate-600 mt-2 font-mono">Robustness</p></div><!--]--></div><!----></div></section><!----> <section id="" class="py-24 px-4 sm:px-6 "><div class="max-w-5xl mx-auto"><h2 class="text-2xl font-semibold tracking-tight text-slate-50 mb-12 text-center">How It <span class="text-indigo-400">Works</span></h2> <div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="text-center p-6 rounded-lg border border-slate-800 bg-slate-900/30"><div class="w-10 h-10 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4"><span class="font-mono text-sm text-indigo-400">1</span></div> <h3 class="font-medium text-slate-200 mb-2">Load</h3> <p class="text-sm text-slate-500">Define task suites and taxonomy specs in YAML. Five treatment types, seven task classes.</p></div> <div class="text-center p-6 rounded-lg border border-slate-800 bg-slate-900/30"><div class="w-10 h-10 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4"><span class="font-mono text-sm text-indigo-400">2</span></div> <h3 class="font-medium text-slate-200 mb-2">Run</h3> <p class="text-sm text-slate-500">Execute every task through every treatment. N repetitions, P paraphrases. All outputs traced to SQLite.</p></div> <div class="text-center p-6 rounded-lg border border-slate-800 bg-slate-900/30"><div class="w-10 h-10 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4"><span class="font-mono text-sm text-indigo-400">3</span></div> <h3 class="font-medium text-slate-200 mb-2">Compare</h3> <p class="text-sm text-slate-500">Generate HTML/Markdown reports with per-treatment scores, promotion signals, and stability analysis.</p></div></div><!----></div></section><!----> <section id="quickstart" class="py-24 px-4 sm:px-6 "><div class="max-w-5xl mx-auto"><h2 class="text-2xl font-semibold tracking-tight text-slate-50 mb-2"><span class="text-indigo-400">Quickstart</span></h2> <p class="text-slate-500 mb-8 max-w-xl">Install, initialize, and run your first benchmark in four commands.</p> <div class="relative max-w-2xl"><div class="rounded-lg border border-slate-800 bg-black overflow-hidden"><div class="flex items-center justify-between px-4 py-3 border-b border-slate-800"><span class="text-xs font-mono text-slate-600">terminal</span> <button class="text-xs font-mono text-slate-500 hover:text-slate-300 transition-colors">copy</button></div> <pre class="p-4 text-sm font-mono text-slate-300 leading-relaxed overflow-x-auto"><!--[--><!---->
-<span class="text-slate-600">$</span> uv sync --extra dev  <span class="text-slate-600"># Install dependencies</span>
-<!---->
-<span class="text-slate-600">$</span> uv run promptstackbench init  <span class="text-slate-600"># Initialize workspace</span>
-<!---->
-<span class="text-slate-600">$</span> uv run promptstackbench run --suite architecture_review --treatments persona,lens,skill --mock  <span class="text-slate-600"># Run benchmark</span>
-<!---->
-<span class="text-slate-600">$</span> uv run promptstackbench report --run-id &lt;id> --format html  <span class="text-slate-600"># Generate report</span>
-<!--]--></pre></div></div> <div class="flex flex-wrap gap-2 mt-6"><!--[--><span class="text-xs font-mono text-slate-600 bg-slate-900/50 border border-slate-800 px-2 py-1 rounded">Python 3.12+</span><span class="text-xs font-mono text-slate-600 bg-slate-900/50 border border-slate-800 px-2 py-1 rounded">Typer CLI</span><span class="text-xs font-mono text-slate-600 bg-slate-900/50 border border-slate-800 px-2 py-1 rounded">Pydantic v2</span><span class="text-xs font-mono text-slate-600 bg-slate-900/50 border border-slate-800 px-2 py-1 rounded">SQLite</span><span class="text-xs font-mono text-slate-600 bg-slate-900/50 border border-slate-800 px-2 py-1 rounded">Jinja2</span><span class="text-xs font-mono text-slate-600 bg-slate-900/50 border border-slate-800 px-2 py-1 rounded">SvelteKit</span><!--]--></div><!----></div></section><!----> <footer class="border-t border-slate-900 mt-20 py-10"><div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4"><div class="flex items-center gap-2 text-xs text-slate-600"><span class="font-mono">v0.1.0</span> <span class="text-slate-800">|</span> <span>MIT License</span> <span class="text-slate-800">|</span> <span>Built with Python + SvelteKit</span></div> <div class="flex items-center gap-4"><a href="https://github.com/rmax-ai/promptstackbench" class="text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-1.5"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"></path></svg> rmax-ai/promptstackbench</a></div></div></footer><!--]--><!----><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
-			
-			<script>
-				{
-					__sveltekit_gme9zv = {
-						base: new URL(".", location).pathname.slice(0, -1),
-						assets: "/promptstackbench"
-					};
+      <section>
+        <h2>Metrics</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Answer Quality</h3>
+            <p>Correctness, completeness, clarity, and relevance.</p>
+          </div>
+          <div class="card">
+            <h3>Grounding and Structure</h3>
+            <p>Hallucination score, schema validity, and instruction adherence.</p>
+          </div>
+          <div class="card">
+            <h3>Robustness</h3>
+            <p>Paraphrase stability and run variance.</p>
+          </div>
+          <div class="card">
+            <h3>Operational</h3>
+            <p>Token usage, latency, cost, and promotion-value tradeoffs.</p>
+          </div>
+        </div>
+      </section>
 
-					const element = document.currentScript.parentElement;
+      <section>
+        <h2>Workspace Convention</h2>
+        <p>
+          This repository includes an ignored <code>workspace/</code> directory
+          for disposable example runs. The documented commands create
+          <code>workspace/readme-example/</code> so they can be copied and pasted
+          without polluting tracked project files.
+        </p>
+      </section>
 
-					Promise.all([
-						import("./_app/immutable/entry/start.Db5X9gFC.js"),
-						import("./_app/immutable/entry/app.pO2dNJpB.js")
-					]).then(([kit, app]) => {
-						kit.start(app, element, {
-							node_ids: [0, 2],
-							data: [null,null],
-							form: null,
-							error: null
-						});
-					});
-				}
-			</script>
-		
+      <section>
+        <h2>Taxonomy Layers</h2>
+        <ul>
+          <li><strong>Persona:</strong> role, tone, and style.</li>
+          <li><strong>Lens:</strong> constrained viewpoint.</li>
+          <li><strong>Skill:</strong> procedure plus output schema.</li>
+          <li><strong>Agent:</strong> tools, state, and multi-step execution.</li>
+          <li><strong>Harness:</strong> guards, retry, and audit behavior.</li>
+        </ul>
+      </section>
+
+      <div class="footer">
+        Built from the checked-in docs site. Source of truth for commands:
+        <a href="https://github.com/rmax-ai/promptstackbench">README and repo</a>.
+      </div>
+    </main>
   </body>
 </html>

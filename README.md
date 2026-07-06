@@ -7,7 +7,7 @@ agent, and when an agent needs a harness.
 
 PromptStackBench runs the same task through five control abstractions —
 persona, lens, skill, agent, harness — then compares outputs on correctness,
-clarity, stability, safety, tool-use quality, cost, latency, and trace quality.
+clarity, groundedness, stability, cost, latency, and promotion value.
 
 It answers the practical engineering question: **at what task complexity does
 each abstraction stop being enough?**
@@ -19,41 +19,53 @@ each abstraction stop being enough?**
 cd promptstackbench
 uv sync --extra dev
 
-# Initialize a benchmark workspace
-uv run promptstackbench init
+# Create a fresh benchmark workspace inside the repo-local scratch area
+mkdir -p workspace/readme-example
+uv run promptstackbench init --path workspace/readme-example
 
-# Run a benchmark suite
+# Run a benchmark suite without API calls
 uv run promptstackbench run \
   --suite architecture_review \
-  --model gpt-4.1 \
   --treatments persona,lens,skill \
-  --repetitions 3 \
-  --paraphrases 5
+  --repetitions 1 \
+  --paraphrases 1 \
+  --mock \
+  --data-dir workspace/readme-example/datasets \
+  --specs-dir workspace/readme-example/specs \
+  --traces-dir workspace/readme-example/traces
 
-# Generate a report
+# Generate a report from the printed run ID
 uv run promptstackbench report \
-  --run-id 2026-07-06-arch-review \
-  --format html
+  --run-id <run-id> \
+  --format html \
+  --traces-dir workspace/readme-example/traces
 
-# Check promotion value
+# Check promotion value for the latest run of a suite
 uv run promptstackbench promote \
   --suite architecture_review \
   --from persona \
-  --to skill
+  --to skill \
+  --traces-dir workspace/readme-example/traces
 ```
 
 ## Architecture
 
 PromptStackBench is a Python CLI tool backed by SQLite. It loads task suites
 and taxonomy specs from YAML, runs them through LLM providers, scores outputs
-with a multi-dimensional evaluator pipeline, and generates comparison reports.
+for answer quality, groundedness, schema validity, and instruction adherence,
+then generates comparison reports with robustness and operational summaries.
 
 ```
-datasets/         Task suites (YAML)
-specs/            Taxonomy specs (YAML)
+datasets/         Task suite fixtures and examples
+docs/             Static docs website
 src/              Python source
-tests/            Test suite
+tests/            Pytest suite
 ```
+
+`promptstackbench init` expects a new target directory. This repository keeps an
+ignored scratch area at `workspace/`; the examples above create
+`workspace/readme-example/` and let `init` populate it with `specs/`,
+`datasets/`, `traces/`, and `config.yaml`.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for system design.
 
@@ -69,7 +81,8 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for system design.
 
 ## Metrics
 
-- **Final-answer:** correctness, completeness, clarity, relevance, hallucinated claims, schema validity
+- **Answer quality:** correctness, completeness, clarity, relevance
+- **Grounding and structure:** hallucination score, schema validity, instruction adherence
 - **Robustness:** paraphrase stability, run variance
 - **Operational:** tokens, latency, cost
 

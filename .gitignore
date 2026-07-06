@@ -8,3 +8,5 @@ dist/
 **/uv.lock
 site/.pnpm-store/
 site/node_modules/
+workspace/*
+!workspace/.gitkeep
