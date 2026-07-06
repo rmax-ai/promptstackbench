@@ -257,3 +257,48 @@ def get_outputs_for_run(conn: sqlite3.Connection, run_id: str) -> list[dict]:
         }
         for r in rows
     ]
+
+
+def get_latest_run_id(
+    conn: sqlite3.Connection, suite_id: str = ""
+) -> str | None:
+    """Return the most recent run ID, optionally filtered by suite."""
+    if suite_id:
+        row = conn.execute(
+            "SELECT id FROM runs WHERE suite_id = ? ORDER BY started_at DESC LIMIT 1",
+            (suite_id,),
+        ).fetchone()
+    else:
+        row = conn.execute(
+            "SELECT id FROM runs ORDER BY started_at DESC LIMIT 1"
+        ).fetchone()
+
+    return row[0] if row else None
+
+
+def get_latest_scored_run_id(
+    conn: sqlite3.Connection, suite_id: str = ""
+) -> str | None:
+    """Return the most recent run ID that has at least one score."""
+    if suite_id:
+        row = conn.execute(
+            "SELECT r.id "
+            "FROM runs r "
+            "JOIN outputs o ON o.run_id = r.id "
+            "JOIN scores s ON s.output_id = o.id "
+            "WHERE r.suite_id = ? "
+            "GROUP BY r.id "
+            "ORDER BY r.started_at DESC LIMIT 1",
+            (suite_id,),
+        ).fetchone()
+    else:
+        row = conn.execute(
+            "SELECT r.id "
+            "FROM runs r "
+            "JOIN outputs o ON o.run_id = r.id "
+            "JOIN scores s ON s.output_id = o.id "
+            "GROUP BY r.id "
+            "ORDER BY r.started_at DESC LIMIT 1"
+        ).fetchone()
+
+    return row[0] if row else None

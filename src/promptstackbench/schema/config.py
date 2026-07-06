@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -15,7 +16,10 @@ class GlobalConfig(BaseModel):
     default_model: str = "gpt-4.1"
     default_provider: str = "openai"
     api_base_url: str = "https://api.openai.com/v1"
-    api_key: str = ""
+    api_key: str = Field(
+        default_factory=lambda: os.getenv("OPENAPI_API_KEY", "")
+        or os.getenv("OPENAI_API_KEY", "")
+    )
     data_dir: Path = Field(default_factory=lambda: Path("datasets"))
     specs_dir: Path = Field(default_factory=lambda: Path("specs"))
     traces_dir: Path = Field(default_factory=lambda: Path("traces"))

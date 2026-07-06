@@ -23,6 +23,8 @@ from promptstackbench.schema.config import GlobalConfig
 from promptstackbench.schema.run import Run
 from promptstackbench.store.db import (
     get_outputs_for_run,
+    get_latest_run_id,
+    get_latest_scored_run_id,
     get_scores_for_run,
     init_db,
     insert_output,
@@ -61,7 +63,10 @@ def init(
     _write_config(root, force)
     console.print(f"[green]Initialized PromptStackBench workspace at {root}[/green]")
     console.print("Next steps:")
-    console.print(f"  1. Set your API key in {root}/config.yaml")
+    console.print(
+        "  1. Set OPENAPI_API_KEY (or OPENAI_API_KEY), or add api_key to "
+        f"{root}/config.yaml"
+    )
     console.print(f"  2. Review specs in {root}/specs/")
     console.print(
         "  3. Run: promptstackbench run --suite architecture_review --treatments persona,lens,skill --mock"
@@ -83,7 +88,10 @@ def run(
     ),
     mock: bool = typer.Option(False, "--mock", help="Use mock provider (no API calls)"),
     api_key: str = typer.Option(
-        "", "--api-key", envvar="OPENAI_API_KEY", help="API key"
+        "",
+        "--api-key",
+        envvar=["OPENAPI_API_KEY", "OPENAI_API_KEY"],
+        help="API key",
     ),
     data_dir: str = typer.Option("datasets", help="Datasets directory"),
     specs_dir: str = typer.Option("specs", help="Specs directory"),
@@ -143,7 +151,10 @@ def run(
     else:
         key = api_key or config.api_key
         if not key:
-            console.print("[red]No API key. Set OPENAI_API_KEY or --api-key.[/red]")
+            console.print(
+                "[red]No API key. Set OPENAPI_API_KEY, OPENAI_API_KEY, "
+                "config.yaml api_key, or --api-key.[/red]"
+            )
             raise typer.Exit(1)
         provider = LLMProvider(
             api_key=key, base_url=config.api_base_url, timeout=config.request_timeout
@@ -227,7 +238,10 @@ def run(
 
 @app.command()
 def report(
-    run_id: str = typer.Option(..., "--run-id", help="Run ID to report on"),
+    run_id: str = typer.Option("", "--run-id", help="Run ID to report on"),
+    latest: bool = typer.Option(
+        False, "--latest", help="Use the most recent run in the traces database"
+    ),
     fmt: str = typer.Option("html", "--format", "-f", help="Output format: html or md"),
     output: str = typer.Option("", "--output", "-o", help="Output path"),
     traces_dir: str = typer.Option("traces", help="Traces directory"),
@@ -239,12 +253,27 @@ def report(
         raise typer.Exit(1)
 
     conn = init_db(db_path)
-    scores = get_scores_for_run(conn, run_id)
-    outputs = get_outputs_for_run(conn, run_id)
+    selected_run_id = run_id
+    if latest or not selected_run_id:
+        selected_run_id = get_latest_scored_run_id(conn) or ""
+        if not selected_run_id:
+            latest_run_id = get_latest_run_id(conn)
+            if latest_run_id:
+                console.print(
+                    "[red]No completed runs with scores found in the traces "
+                    "database[/red]"
+                )
+            else:
+                console.print("[red]No runs found in the traces database[/red]")
+            conn.close()
+            raise typer.Exit(1)
+
+    scores = get_scores_for_run(conn, selected_run_id)
+    outputs = get_outputs_for_run(conn, selected_run_id)
 
     # Read run metadata from DB
     run_row = conn.execute(
-        "SELECT suite_id, model FROM runs WHERE id = ?", (run_id,)
+        "SELECT suite_id, model FROM runs WHERE id = ?", (selected_run_id,)
     ).fetchone()
     conn.close()
 
@@ -252,11 +281,11 @@ def report(
     model = run_row[1] if run_row else ""
 
     if not scores:
-        console.print(f"[red]No scores found for run {run_id}[/red]")
+        console.print(f"[red]No scores found for run {selected_run_id}[/red]")
         raise typer.Exit(1)
 
-    data = build_report_data(run_id, suite_id, model, scores, outputs)
-    out_path = Path(output) if output else Path(f"report_{run_id}")
+    data = build_report_data(selected_run_id, suite_id, model, scores, outputs)
+    out_path = Path(output) if output else Path(f"report_{selected_run_id}")
     result = write_report(data, out_path, fmt)
     console.print(f"[green]Report written to {result}[/green]")
 
