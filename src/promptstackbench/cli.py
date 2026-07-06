@@ -241,13 +241,21 @@ def report(
     conn = init_db(db_path)
     scores = get_scores_for_run(conn, run_id)
     outputs = get_outputs_for_run(conn, run_id)
+
+    # Read run metadata from DB
+    run_row = conn.execute(
+        "SELECT suite_id, model FROM runs WHERE id = ?", (run_id,)
+    ).fetchone()
     conn.close()
+
+    suite_id = run_row[0] if run_row else ""
+    model = run_row[1] if run_row else ""
 
     if not scores:
         console.print(f"[red]No scores found for run {run_id}[/red]")
         raise typer.Exit(1)
 
-    data = build_report_data(run_id, "", "", scores, outputs)
+    data = build_report_data(run_id, suite_id, model, scores, outputs)
     out_path = Path(output) if output else Path(f"report_{run_id}")
     result = write_report(data, out_path, fmt)
     console.print(f"[green]Report written to {result}[/green]")

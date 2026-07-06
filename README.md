@@ -70,8 +70,8 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for system design.
 ## Metrics
 
 - **Final-answer:** correctness, completeness, clarity, relevance, hallucinated claims, schema validity
-- **Robustness:** paraphrase stability, model stability, run variance
-- **Operational:** tokens, latency, cost, trace size
+- **Robustness:** paraphrase stability, run variance
+- **Operational:** tokens, latency, cost
 
 ## Documentation
 
