@@ -35,8 +35,12 @@
     </p>
     <p class="text-sm text-slate-500 max-w-xl mx-auto mb-10">
       Run the same task through five control abstractions.
-      Compare outputs on correctness, clarity, stability, safety, cost, and trace quality.
+      Compare answer quality, groundedness, stability, cost, latency, and promotion value.
       Know when each layer pays for itself.
+    </p>
+    <p class="text-sm text-slate-500 max-w-xl mx-auto mb-10">
+      Today the runnable benchmark focuses on persona, lens, and skill.
+      Richer agent and harness execution models are planned rather than fully implemented.
     </p>
     <div class="flex items-center justify-center gap-4">
       <a href={REPO} class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">
@@ -49,28 +53,17 @@
     </div>
   </div>
 
-  <!-- Faux terminal -->
+  <!-- Quickstart preview -->
   <div class="mt-16 max-w-2xl mx-auto">
     <div class="rounded-lg border border-slate-800 bg-black overflow-hidden">
       <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-800">
         <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
         <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
         <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-        <span class="ml-2 text-xs font-mono text-slate-600">benchmark run</span>
+        <span class="ml-2 text-xs font-mono text-slate-600">quickstart</span>
       </div>
-      <pre class="p-4 text-xs font-mono text-slate-400 leading-relaxed overflow-x-auto"><span class="text-slate-600">$</span> <span class="text-indigo-400">promptstackbench</span> run --suite architecture_review --treatments persona,lens,skill
-
-<span class="text-slate-600">┌─────────────────────┬──────────┬──────────┬──────────┐</span>
-<span class="text-slate-600">│ Metric              │</span> <span class="text-amber-400">Persona</span>  <span class="text-slate-600">│</span> <span class="text-amber-400">Lens</span>     <span class="text-slate-600">│</span> <span class="text-emerald-400">Skill</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">├─────────────────────┼──────────┼──────────┼──────────┤</span>
-<span class="text-slate-600">│ Correctness         │</span>   6.2    <span class="text-slate-600">│</span>   7.1    <span class="text-slate-600">│</span>   <span class="text-emerald-400">8.4</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">│ Completeness        │</span>   5.8    <span class="text-slate-600">│</span>   6.9    <span class="text-slate-600">│</span>   <span class="text-emerald-400">8.1</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">│ Schema Validity     │</span>   4.2    <span class="text-slate-600">│</span>   5.5    <span class="text-slate-600">│</span>   <span class="text-emerald-400">9.7</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">│ Stability           │</span>   5.5    <span class="text-slate-600">│</span>   7.0    <span class="text-slate-600">│</span>   <span class="text-emerald-400">9.1</span>    <span class="text-slate-600">│</span>
-<span class="text-slate-600">└─────────────────────┴──────────┴──────────┴──────────┘</span>
-
-<span class="text-emerald-400">Promotion signal (persona → skill): 1.84</span>
-<span class="text-slate-600">Skill treatment justified: quality gain (+34%) at 1.2× cost</span></pre>
+      <pre class="p-4 text-xs font-mono text-slate-400 leading-relaxed overflow-x-auto">{#each QUICKSTART_COMMANDS as cmd}<span class="text-slate-600">$</span> {cmd.cmd}
+{/each}</pre>
     </div>
   </div>
 </Section>
@@ -81,7 +74,7 @@
     The <span class="text-indigo-400">Taxonomy</span>
   </h2>
   <p class="text-slate-500 mb-12 max-w-xl">
-    Five control abstractions, from lightweight role instructions to governed agent runtimes.
+    Five control abstractions, from lightweight role instructions to planned agent and harness runtimes.
     Each adds structure — and cost. The benchmark measures when the trade-off pays off.
   </p>
 
@@ -134,8 +127,8 @@
     Evaluation <span class="text-indigo-400">Metrics</span>
   </h2>
   <p class="text-slate-500 mb-12 max-w-xl">
-    Eight metrics across two categories. Hover any taxonomy layer above to see which
-    metrics discriminate most at that level.
+    Current scoring combines answer-quality checks, structure checks, and robustness summaries.
+    Tokens, latency, and cost are reported alongside those scores.
   </p>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -156,6 +149,59 @@
   </div>
 </Section>
 
+<!-- Example Report -->
+<Section klass="border-t border-slate-900">
+  <h2 class="text-2xl font-semibold tracking-tight text-slate-50 mb-2">
+    Example <span class="text-indigo-400">Report</span>
+  </h2>
+  <p class="text-slate-500 mb-8 max-w-2xl">
+    This preview is based on a real generated HTML report from run
+    <span class="font-mono text-slate-400">2026-07-06-202054</span>. It shows the current
+    report shape more accurately than a fabricated benchmark-run terminal demo.
+  </p>
+
+  <div class="rounded-lg border border-slate-800 bg-black overflow-hidden max-w-3xl">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+      <span class="text-xs font-mono text-slate-600">report preview</span>
+      <span class="text-xs font-mono text-slate-600">report_2026-07-06-202054.html</span>
+    </div>
+    <pre class="p-4 text-xs font-mono text-slate-300 leading-relaxed overflow-x-auto">PromptStackBench Report
+Run ID: 2026-07-06-202054
+Suite: architecture_review
+Model: gpt-4.1
+
+Summary
+
+persona: senior_architect_persona
+  correctness: 9.50
+  completeness: 9.00
+  clarity: 9.00
+  relevance: 10.00
+  schema_validity: 8.00
+  avg tokens: 713
+  avg latency: 8679ms
+  avg cost: $0.0067
+
+skill: architecture_review_skill
+  correctness: 10.00
+  completeness: 9.00
+  clarity: 9.00
+  relevance: 10.00
+  schema_validity: 5.00
+  avg tokens: 586
+  avg latency: 8515ms
+  avg cost: $0.0048
+
+Promotion signals
+  persona -> lens: quality -13.1%, cost +6.9%
+  lens -> skill: quality +11.5%, cost -32.5%
+
+Per-task scores
+  arch_review_001: persona 9.14, skill 8.86, lens 7.86
+  arch_review_002: persona 9.43, skill 9.14, lens 8.29</pre>
+  </div>
+</Section>
+
 <!-- How It Works -->
 <Section klass="border-t border-slate-900">
   <h2 class="text-2xl font-semibold tracking-tight text-slate-50 mb-12 text-center">
@@ -168,21 +214,21 @@
         <span class="font-mono text-sm text-indigo-400">1</span>
       </div>
       <h3 class="font-medium text-slate-200 mb-2">Load</h3>
-      <p class="text-sm text-slate-500">Define task suites and taxonomy specs in YAML. Five treatment types, seven task classes.</p>
+      <p class="text-sm text-slate-500">Define task suites and taxonomy specs in YAML, then initialize a fresh workspace directory for each example run.</p>
     </div>
     <div class="text-center p-6 rounded-lg border border-slate-800 bg-slate-900/30">
       <div class="w-10 h-10 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4">
         <span class="font-mono text-sm text-indigo-400">2</span>
       </div>
       <h3 class="font-medium text-slate-200 mb-2">Run</h3>
-      <p class="text-sm text-slate-500">Execute every task through every treatment. N repetitions, P paraphrases. All outputs traced to SQLite.</p>
+      <p class="text-sm text-slate-500">Execute each task through each treatment with configurable repetitions and paraphrases. Outputs are stored in SQLite.</p>
     </div>
     <div class="text-center p-6 rounded-lg border border-slate-800 bg-slate-900/30">
       <div class="w-10 h-10 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4">
         <span class="font-mono text-sm text-indigo-400">3</span>
       </div>
       <h3 class="font-medium text-slate-200 mb-2">Compare</h3>
-      <p class="text-sm text-slate-500">Generate HTML/Markdown reports with per-treatment scores, promotion signals, and stability analysis.</p>
+      <p class="text-sm text-slate-500">Generate HTML or Markdown reports with scores, robustness summaries, and promotion signals.</p>
     </div>
   </div>
 </Section>
@@ -193,7 +239,7 @@
     <span class="text-indigo-400">Quickstart</span>
   </h2>
   <p class="text-slate-500 mb-8 max-w-xl">
-    Install, initialize, and run your first benchmark in four commands.
+    Install, initialize, and run your first mock benchmark in a repo-local workspace.
   </p>
 
   <div class="relative max-w-2xl">

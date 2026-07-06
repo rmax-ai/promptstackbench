@@ -4,7 +4,7 @@ const isDev = process.argv.includes("dev");
 
 const config = {
   kit: {
-    adapter: adapter({ pages: "../docs", assets: "../docs", fallback: undefined }),
+    adapter: adapter({ pages: "build", assets: "build", fallback: undefined }),
     paths: {
       base: isDev ? "" : "/promptstackbench",
     },

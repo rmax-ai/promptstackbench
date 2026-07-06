@@ -64,7 +64,7 @@ then generates comparison reports with robustness and operational summaries.
 
 ```
 datasets/         Task suite fixtures and examples
-docs/             Static docs website
+site/             SvelteKit docs website source
 src/              Python source
 tests/            Pytest suite
 ```

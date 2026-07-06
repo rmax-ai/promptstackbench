@@ -29,7 +29,8 @@ export const TAXONOMY_LAYERS = [
   {
     id: "agent",
     label: "Agent",
-    description: "Tools + state + multi-step reasoning. Useful when tasks require search, branching, or external action.",
+    description:
+      "Planned richer runtime with tools, state, and multi-step execution.",
     bestFor: "Tasks requiring tools, state, or multi-step search",
     borderClass: "border-l-indigo-600",
     complexity: 4,
@@ -37,7 +38,8 @@ export const TAXONOMY_LAYERS = [
   {
     id: "harness",
     label: "Harness",
-    description: "Guards + retry + audit trail. The evaluation and control layer. Highest implementation complexity.",
+    description:
+      "Planned control layer with guards, retry, and audit behavior.",
     bestFor: "Compliance, safety, production actions, audit requirements",
     borderClass: "border-l-indigo-400",
     complexity: 5,
@@ -57,9 +59,17 @@ export const METRICS = [
 
 export const QUICKSTART_COMMANDS = [
   { cmd: "uv sync --extra dev", comment: "# Install dependencies" },
-  { cmd: "uv run promptstackbench init", comment: "# Initialize workspace" },
-  { cmd: "uv run promptstackbench run --suite architecture_review --treatments persona,lens,skill --mock", comment: "# Run benchmark" },
-  { cmd: "uv run promptstackbench report --run-id <id> --format html", comment: "# Generate report" },
+  { cmd: "mkdir -p workspace/readme-example", comment: "# Create a fresh workspace root" },
+  { cmd: "uv run promptstackbench init --path workspace/readme-example", comment: "# Initialize workspace" },
+  { cmd: "export OPENAPI_API_KEY=<api-key>", comment: "# Set API key for non-mock runs" },
+  {
+    cmd: "uv run promptstackbench run --suite architecture_review --treatments persona,lens,skill --repetitions 1 --paraphrases 1 --mock --data-dir workspace/readme-example/datasets --specs-dir workspace/readme-example/specs --traces-dir workspace/readme-example/traces",
+    comment: "# Run benchmark",
+  },
+  {
+    cmd: "uv run promptstackbench report --latest --format html --traces-dir workspace/readme-example/traces",
+    comment: "# Generate report",
+  },
 ];
 
 export const STACK = ["Python 3.12+", "Typer CLI", "Pydantic v2", "SQLite", "Jinja2", "SvelteKit"];
