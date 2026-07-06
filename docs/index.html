@@ -191,6 +191,7 @@
             <pre><code>uv sync --extra dev
 mkdir -p workspace/readme-example
 uv run promptstackbench init --path workspace/readme-example
+export OPENAPI_API_KEY=&lt;api-key&gt;
 uv run promptstackbench run \
   --suite architecture_review \
   --treatments persona,lens,skill \
@@ -201,7 +202,7 @@ uv run promptstackbench run \
   --specs-dir workspace/readme-example/specs \
   --traces-dir workspace/readme-example/traces
 uv run promptstackbench report \
-  --run-id &lt;run-id&gt; \
+  --latest \
   --format html \
   --traces-dir workspace/readme-example/traces</code></pre>
           </div>
@@ -263,7 +264,10 @@ uv run promptstackbench report \
           This repository includes an ignored <code>workspace/</code> directory
           for disposable example runs. The documented commands create
           <code>workspace/readme-example/</code> so they can be copied and pasted
-          without polluting tracked project files.
+          without polluting tracked project files. For real model runs, the CLI
+          reads <code>OPENAPI_API_KEY</code> by default and falls back to
+          <code>OPENAI_API_KEY</code>, <code>config.yaml</code>, or
+          <code>--api-key</code>.
         </p>
       </section>
 

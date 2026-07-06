@@ -23,6 +23,9 @@ uv sync --extra dev
 mkdir -p workspace/readme-example
 uv run promptstackbench init --path workspace/readme-example
 
+# Set your API key for non-mock runs
+export OPENAPI_API_KEY=<api-key>
+
 # Run a benchmark suite without API calls
 uv run promptstackbench run \
   --suite architecture_review \
@@ -34,9 +37,9 @@ uv run promptstackbench run \
   --specs-dir workspace/readme-example/specs \
   --traces-dir workspace/readme-example/traces
 
-# Generate a report from the printed run ID
+# Generate a report for the latest scored run
 uv run promptstackbench report \
-  --run-id <run-id> \
+  --latest \
   --format html \
   --traces-dir workspace/readme-example/traces
 
@@ -65,7 +68,9 @@ tests/            Pytest suite
 `promptstackbench init` expects a new target directory. This repository keeps an
 ignored scratch area at `workspace/`; the examples above create
 `workspace/readme-example/` and let `init` populate it with `specs/`,
-`datasets/`, `traces/`, and `config.yaml`.
+`datasets/`, `traces/`, and `config.yaml`. For real model runs, the CLI reads
+`OPENAPI_API_KEY` by default and falls back to `OPENAI_API_KEY`, `config.yaml`,
+or `--api-key`.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for system design.
 
