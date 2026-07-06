@@ -6,3 +6,5 @@ dist/
 .ruff_cache/
 *.sqlite
 **/uv.lock
+site/.pnpm-store/
+site/node_modules/
