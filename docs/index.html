@@ -242,6 +242,54 @@ uv run promptstackbench report \
       </section>
 
       <section>
+        <h2>Example Report</h2>
+        <p>
+          This preview is based on a real generated report HTML artifact from
+          run <code>2026-07-06-202054</code>. It shows the shape of the current
+          report output more accurately than a fabricated terminal demo.
+        </p>
+        <div class="panel">
+          <div class="panel-header">
+            Report Preview: <code>report_2026-07-06-202054.html</code>
+          </div>
+          <pre><code>PromptStackBench Report
+Run ID: 2026-07-06-202054
+Suite: architecture_review
+Model: gpt-4.1
+
+Summary
+
+persona: senior_architect_persona
+  correctness: 9.50
+  completeness: 9.00
+  clarity: 9.00
+  relevance: 10.00
+  schema_validity: 8.00
+  avg tokens: 713
+  avg latency: 8679ms
+  avg cost: $0.0067
+
+skill: architecture_review_skill
+  correctness: 10.00
+  completeness: 9.00
+  clarity: 9.00
+  relevance: 10.00
+  schema_validity: 5.00
+  avg tokens: 586
+  avg latency: 8515ms
+  avg cost: $0.0048
+
+Promotion signals
+  persona -> lens: quality -13.1%, cost +6.9%
+  lens -> skill: quality +11.5%, cost -32.5%
+
+Per-task scores
+  arch_review_001: persona 9.14, skill 8.86, lens 7.86
+  arch_review_002: persona 9.43, skill 9.14, lens 8.29</code></pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Metrics</h2>
         <div class="cards">
           <div class="card">
