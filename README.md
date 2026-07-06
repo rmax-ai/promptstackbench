@@ -12,6 +12,10 @@ clarity, groundedness, stability, cost, latency, and promotion value.
 It answers the practical engineering question: **at what task complexity does
 each abstraction stop being enough?**
 
+Today the runnable benchmark focuses on persona, lens, and skill. Distinct
+agent and harness runtimes are planned, but not yet implemented beyond
+spec/prompt support.
+
 ## Quickstart
 
 ```bash
@@ -81,8 +85,8 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for system design.
 | Persona | Role, tone, style | Low-risk tasks where voice matters |
 | Lens | Constrained viewpoint | Tasks needing a stable perspective |
 | Skill | Procedure + output schema | Repeatable, reviewable tasks |
-| Agent | Tools + state + multi-step | Tasks requiring search, tools, branching |
-| Harness | Guards + retry + audit | Compliance, safety, production actions |
+| Agent | Planned richer runtime with tools, state, multi-step execution | Tasks requiring search, tools, branching |
+| Harness | Planned control layer with guards, retry, audit behavior | Compliance, safety, production actions |
 
 ## Metrics
 

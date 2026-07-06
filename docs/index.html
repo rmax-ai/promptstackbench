@@ -185,6 +185,11 @@
               Compare answer quality, groundedness, stability, cost, latency,
               and promotion value across the taxonomy.
             </p>
+            <p>
+              Today the runnable benchmark focuses on persona, lens, and skill.
+              Richer agent and harness execution models are planned rather than
+              fully implemented.
+            </p>
           </div>
           <div class="panel">
             <div class="panel-header">Quickstart</div>
@@ -272,13 +277,34 @@ uv run promptstackbench report \
       </section>
 
       <section>
+        <h2>Current Status</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Implemented Today</h3>
+            <p>
+              Persona, lens, and skill treatments run end to end through the
+              current prompt-based benchmark pipeline.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Planned</h3>
+            <p>
+              Agent and harness specs are modeled and loadable, but distinct
+              runtimes with tools, state, guards, retries, and audit behavior
+              are still planned work.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
         <h2>Taxonomy Layers</h2>
         <ul>
           <li><strong>Persona:</strong> role, tone, and style.</li>
           <li><strong>Lens:</strong> constrained viewpoint.</li>
           <li><strong>Skill:</strong> procedure plus output schema.</li>
-          <li><strong>Agent:</strong> tools, state, and multi-step execution.</li>
-          <li><strong>Harness:</strong> guards, retry, and audit behavior.</li>
+          <li><strong>Agent:</strong> planned richer runtime with tools, state, and multi-step execution.</li>
+          <li><strong>Harness:</strong> planned control layer with guards, retry, and audit behavior.</li>
         </ul>
       </section>
 
