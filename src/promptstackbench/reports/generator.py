@@ -161,26 +161,61 @@ def build_report_data(
             }
         )
 
-    # Per-task scores
+    # Per-task scores with real stability/variance
     task_scores: dict[str, dict[str, list[float]]] = defaultdict(
         lambda: defaultdict(list)
+    )
+    # Group scores by task + treatment + paraphrase for stability
+    task_tr_para: dict[str, dict[str, dict[int, list[float]]]] = defaultdict(
+        lambda: defaultdict(lambda: defaultdict(list))
+    )
+    # Group scores by task + treatment + repetition for variance
+    task_tr_rep: dict[str, dict[str, dict[int, list[float]]]] = defaultdict(
+        lambda: defaultdict(lambda: defaultdict(list))
     )
     for s in scores:
         task_key = s["task_id"]
         tr_key = s["treatment_type"]
         task_scores[task_key][tr_key].append(s["score"])
+        task_tr_para[task_key][tr_key][s.get("paraphrase_index", 0)].append(s["score"])
+        task_tr_rep[task_key][tr_key][s.get("repetition_index", 0)].append(s["score"])
 
     tasks = []
     for task_id in sorted(task_scores):
         tr_list = []
         for tr_type in sorted(task_scores[task_id]):
             vals = task_scores[task_id][tr_type]
+
+            # Compute paraphrase stability
+            para_scores = task_tr_para[task_id][tr_type]
+            para_means = [
+                sum(pl) / len(pl) for pl in para_scores.values() if pl
+            ]
+            if len(para_means) >= 2:
+                import statistics
+                para_std = statistics.stdev(para_means)
+                stability = max(0.0, 10.0 - (para_std * 2))
+            else:
+                stability = 10.0
+
+            # Compute run variance
+            rep_scores = task_tr_rep[task_id][tr_type]
+            rep_means = [
+                sum(rl) / len(rl) for rl in rep_scores.values() if rl
+            ]
+            if len(rep_means) >= 2:
+                import statistics
+                rep_std = statistics.stdev(rep_means)
+                variance = max(0.0, 10.0 - (rep_std * 2))
+            else:
+                variance = 10.0
+
             tr_list.append(
                 {
                     "type": tr_type,
                     "mean_score": sum(vals) / len(vals),
-                    "paraphrase_stability": 8.0,
-                    "run_variance": 9.0,
+                    "paraphrase_stability": round(stability, 2),
+                    "run_variance": round(variance, 2),
                 }
             )
         tasks.append({"id": task_id, "treatments": tr_list})
