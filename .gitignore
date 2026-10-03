@@ -11,3 +11,26 @@ site/node_modules/
 .pnpm-store/
 workspace/*
 !workspace/.gitkeep
+
+# gitignore-hygiene additions (2026-10-03)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.venv/
+venv/
+.mypy_cache/
+.coverage
+htmlcov/
+coverage/
+build/
+node_modules/
+.next/
+.svelte-kit/
+.turbo/
